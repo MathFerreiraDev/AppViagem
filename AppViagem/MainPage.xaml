@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"  
+   NavigationPage.BackButtonTitle=""  
+             x:Class="AppViagem.MainPage"
+             Title="Estipular viagem 🗺">
+
+
+
+    <ScrollView>
+        <Grid RowDefinitions="290, *" Padding="0">
+            
+            <Image
+                Source="main_background.jpg"
+                Grid.Row="0"
+                HorizontalOptions="FillAndExpand"
+                Aspect="AspectFit"
+                SemanticProperties.Description="no found image!" />
+
+            <VerticalStackLayout BackgroundColor="gray"
+    Padding="0,0"
+    Spacing="25" Grid.Row="1">
+                <Label
+                Text="Informe: "
+                Style="{StaticResource tinytext}"
+                HorizontalOptions="Center"/>
+
+                <Grid HorizontalOptions="FillAndExpand" RowDefinitions="*, *, *, *, *" ColumnDefinitions="170, *" RowSpacing="15">
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="Origem 🏠: " Style="{StaticResource info_input}"/>
+                    <Entry Grid.Row="0" Grid.Column="1" x:Name="trip_origem"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Text="Destino 🚩: " Style="{StaticResource info_input}"/>
+                    <Entry Grid.Row="1" Grid.Column="1" x:Name="trip_destino"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Text="Distância 🧭: " Style="{StaticResource info_input}"/>
+                    <Entry Grid.Row="2" Grid.Column="1" x:Name="trip_distancia"/>
+
+                    <Label Grid.Row="3" Grid.Column="0" Text="Rendimento 🚗: " Style="{StaticResource info_input}"/>
+                    <Entry Grid.Row="3" Grid.Column="1" x:Name="trip_rendimento"/>
+
+                    <Label Grid.Row="4" Grid.Column="0" Text="L/comb ⛽: " Style="{StaticResource info_input}"/>
+                    <Entry Grid.Row="4" Grid.Column="1" x:Name="trip_combustivel"/>
+                </Grid>
+            </VerticalStackLayout>
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

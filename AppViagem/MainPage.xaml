@@ -9,7 +9,7 @@
 
 
     <ScrollView>
-        <Grid RowDefinitions="290, *" Padding="0">
+        <Grid RowDefinitions="270, 80, *" Padding="0">
             
             <Image
                 Source="main_background.jpg"
@@ -18,15 +18,22 @@
                 Aspect="AspectFit"
                 SemanticProperties.Description="no found image!" />
 
-            <VerticalStackLayout BackgroundColor="gray"
-    Padding="0,0"
-    Spacing="25" Grid.Row="1">
+            <Frame Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="20" BackgroundColor="#f0f0f0" Grid.RowSpan="2" BorderColor="#f0f0f0" Padding="30, 15">
+                <Grid  ColumnDefinitions="*, *" ColumnSpacing="15">
+                    <Button x:Name="btn_viagens" Grid.Column="0" Style="{StaticResource btn_mainpage}" BackgroundColor="#238761" Text="🎫 LISTAR VIAGENS" Clicked="btn_viagens_Clicked"/>
+                    <Button x:Name="btn_pedagios" Grid.Column="1" Style="{StaticResource btn_mainpage}" BackgroundColor="#215b8a" Text="📌 LISTAR PEDÁGIOS" Clicked="btn_pedagios_Clicked"/>
+                </Grid>
+            </Frame>
+            
+            <StackLayout BackgroundColor="#f0f0f0"
+    Padding="45, 0, 45, 20"
+    Spacing="25" Grid.Row="2">
                 <Label
                 Text="Informe: "
                 Style="{StaticResource tinytext}"
                 HorizontalOptions="Center"/>
 
-                <Grid HorizontalOptions="FillAndExpand" RowDefinitions="*, *, *, *, *" ColumnDefinitions="170, *" RowSpacing="15">
+                <Grid HorizontalOptions="FillAndExpand" RowDefinitions="*, *, *, *, *" ColumnDefinitions="230, *" RowSpacing="15">
 
                     <Label Grid.Row="0" Grid.Column="0" Text="Origem 🏠: " Style="{StaticResource info_input}"/>
                     <Entry Grid.Row="0" Grid.Column="1" x:Name="trip_origem"/>
@@ -35,15 +42,24 @@
                     <Entry Grid.Row="1" Grid.Column="1" x:Name="trip_destino"/>
 
                     <Label Grid.Row="2" Grid.Column="0" Text="Distância 🧭: " Style="{StaticResource info_input}"/>
-                    <Entry Grid.Row="2" Grid.Column="1" x:Name="trip_distancia"/>
+                    <Entry Grid.Row="2" Grid.Column="1" x:Name="trip_distancia" IsEnabled="False" Keyboard="Numeric"/>
 
-                    <Label Grid.Row="3" Grid.Column="0" Text="Rendimento 🚗: " Style="{StaticResource info_input}"/>
-                    <Entry Grid.Row="3" Grid.Column="1" x:Name="trip_rendimento"/>
+                    <Label Grid.Row="3" Grid.Column="0" Text="Rendimento Km/L 🚗: " Style="{StaticResource info_input}"/>
+                    <Entry Grid.Row="3" Grid.Column="1" x:Name="trip_rendimento" Keyboard="Numeric"/>
 
                     <Label Grid.Row="4" Grid.Column="0" Text="L/comb ⛽: " Style="{StaticResource info_input}"/>
-                    <Entry Grid.Row="4" Grid.Column="1" x:Name="trip_combustivel"/>
+                    <Entry Grid.Row="4" Grid.Column="1" x:Name="trip_combustivel" Keyboard="Numeric"/>
                 </Grid>
-            </VerticalStackLayout>
+
+                <Button x:Name="btn_listagempedagios" Style="{StaticResource btn_mainpage}" Text="+ Adicionar pedágio" WidthRequest="200" HeightRequest="20" HorizontalOptions="Start" FontSize="18" BackgroundColor="#1d7c91" Clicked="btn_listagempedagios_Clicked"/>
+                
+                <StackLayout Padding="0, 10">
+                    
+                </StackLayout>
+
+                <Button x:Name="btn_calculoviagem" Style="{StaticResource btn_mainpage}" BackgroundColor="#4e316b" Text="CALCULAR VIAGEM" Clicked="btn_calculoviagem_Clicked"/>
+
+            </StackLayout>
 
         </Grid>
     </ScrollView>

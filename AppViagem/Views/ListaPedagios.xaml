@@ -2,11 +2,41 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppViagem.Views.ListaPedagios"
-             Title="ListaPedagios">
+             Title="📌 Pedágios">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <StackLayout>
+            <Button x:Name="btn_adicionarpedagio" Style="{StaticResource btn_fullwidth}" Text="Adicionar pedágio"  Clicked="btn_adicionarpedagio_Clicked"/>
+            <ScrollView>
+                <ListView x:Name="lst_pedagios" ItemSelected="lst_pedagios_ItemSelected"  Margin="10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Remover" Clicked="MenuItem_Clicked"/>
+                                </ViewCell.ContextActions>
+                                <Grid ColumnDefinitions="*">
+                                    <Frame Grid.Row="0" Grid.Column="0" Padding="3" Margin="10, 10, 10, 0" BackgroundColor="{StaticResource Gray200}" CornerRadius="10" HorizontalOptions="FillAndExpand">
+                                        <Frame  BackgroundColor="White" CornerRadius="7" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                            <Grid RowDefinitions="*, *" ColumnDefinitions="*, *" RowSpacing="5">
+                                                <Label Text="{Binding NomePedagio}" FontSize="20" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                                                   TextColor="Black" HorizontalTextAlignment="Start" VerticalTextAlignment="Start"/>
+
+                                                <Label Text="{Binding PrecoPedagio}" FontSize="15" Grid.Row="1" Grid.Column="0"
+                                                   TextColor="{StaticResource Gray400}" HorizontalTextAlignment="Start" VerticalTextAlignment="Start"/>
+
+                                                <Label Text="{Binding EstacaoPedagio}" FontSize="15" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                                                   TextColor="{StaticResource Gray600}" HorizontalTextAlignment="End" VerticalTextAlignment="Start"/>
+                                            </Grid>
+                                        </Frame>
+                                    </Frame>
+                                </Grid>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </ScrollView>
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>

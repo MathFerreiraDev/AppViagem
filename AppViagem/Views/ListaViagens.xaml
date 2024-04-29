@@ -2,11 +2,85 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppViagem.Views.ListaViagens"
-             Title="ListaViagens">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="🎫 LISTAR VIAGENS">
+
+    <StackLayout VerticalOptions="FillAndExpand">
+            <ScrollView VerticalOptions="FillAndExpand">
+
+            <ListView x:Name="lst_viagensviewer">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Remover" Clicked="MenuItem_Clicked"/>
+                                </ViewCell.ContextActions>
+                                <Grid ColumnDefinitions="*">
+                                    <Frame Grid.Row="0" Grid.Column="0" Padding="3" Margin="10"  BackgroundColor="{StaticResource Gray200}" CornerRadius="10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                        <Frame  BackgroundColor="White" CornerRadius="7" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+                                            <Grid RowDefinitions="*, 30, Auto, 30, 30" ColumnDefinitions="*, 190" RowSpacing="5">
+
+                                                <StackLayout Spacing="10" Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                                                    <Label Text="{Binding OrigemViagem}" FontSize="20" 
+                                                       TextColor="Black" HorizontalTextAlignment="Start" VerticalTextAlignment="Start"/>
+
+                                                    <Label Text="para" FontSize="20"
+                                                       TextColor="Black" HorizontalTextAlignment="Start" VerticalTextAlignment="Start"/>
+
+                                                    <Label Text="{Binding DestinoViagem}" FontSize="20" 
+                                                       TextColor="Black" HorizontalTextAlignment="Start" VerticalTextAlignment="Start"/>
+
+
+
+                                                </StackLayout>
+
+                                                <Label Text="{Binding DistanciaViagem}" FontSize="15" Grid.Row="0" Grid.Column="2"
+                                                   TextColor="{StaticResource Gray600}" HorizontalOptions="End" VerticalTextAlignment="Start"/>
+
+                                                <Label Text="{Binding TotalViagem}" FontSize="15" Grid.Row="1" Grid.Column="0"
+                                                   TextColor="{StaticResource Gray600}" HorizontalTextAlignment="Start" VerticalTextAlignment="Start"/>
+
+                                                <StackLayout Spacing="10" Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+
+                                                    <Label Text="Acréscimos:" FontSize="15" FontAttributes="Bold"
+                                                       TextColor="DarkSlateGray" HorizontalTextAlignment="Start" VerticalTextAlignment="Start"/>
+
+                                                    <Label Text="{Binding DescViagem}" FontSize="15" WidthRequest="150"
+                                                       TextColor="{StaticResource Gray300}"/>
+
+                                                </StackLayout>
+
+                                                <StackLayout Spacing="10" Orientation="Horizontal" Grid.Row="3" Grid.Column="0">
+                                                    <Label Text="{Binding RendimentoViagem}" FontSize="15" FontAttributes="Bold"
+                                                       TextColor="DarkSlateGray"/>
+
+                                                    <Label Text="por" FontSize="15" FontAttributes="Bold"
+                                                            TextColor="DarkSlateGray"/>
+
+                                                    <Label Text="{Binding LitroViagem}" FontSize="15" FontAttributes="Bold"
+                                                       TextColor="DarkSlateGray"/>
+
+                                                    <Label Text=" - " FontSize="15"  FontAttributes="Bold"
+                                                       TextColor="DarkSlateGray"/>
+
+                                                    <Label Text="{Binding CombustivelViagem}" FontSize="15" FontAttributes="Bold"
+                                                       TextColor="DarkSlateGray"/>
+                                                </StackLayout>
+
+
+                                            </Grid>
+                                        </Frame>
+                                    </Frame>
+                                </Grid>
+
+
+                            </ViewCell>
+                </DataTemplate>
+                </ListView.ItemTemplate>
+                </ListView>
+           
+      
+    </ScrollView>
+    </StackLayout>
+
 </ContentPage>

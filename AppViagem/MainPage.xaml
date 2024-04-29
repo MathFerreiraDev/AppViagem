@@ -36,26 +36,32 @@
                 <Grid HorizontalOptions="FillAndExpand" RowDefinitions="*, *, *, *, *" ColumnDefinitions="230, *" RowSpacing="15">
 
                     <Label Grid.Row="0" Grid.Column="0" Text="Origem 🏠: " Style="{StaticResource info_input}"/>
-                    <Entry Grid.Row="0" Grid.Column="1" x:Name="trip_origem"/>
+                    <Entry Grid.Row="0" Grid.Column="1" x:Name="txt_origem"/>
 
                     <Label Grid.Row="1" Grid.Column="0" Text="Destino 🚩: " Style="{StaticResource info_input}"/>
-                    <Entry Grid.Row="1" Grid.Column="1" x:Name="trip_destino"/>
+                    <Entry Grid.Row="1" Grid.Column="1" x:Name="txt_destino"/>
 
                     <Label Grid.Row="2" Grid.Column="0" Text="Distância 🧭: " Style="{StaticResource info_input}"/>
-                    <Entry Grid.Row="2" Grid.Column="1" x:Name="trip_distancia" IsEnabled="False" Keyboard="Numeric"/>
+                    <Entry Grid.Row="2" Grid.Column="1" x:Name="txt_distancia" Keyboard="Numeric"/>
 
                     <Label Grid.Row="3" Grid.Column="0" Text="Rendimento Km/L 🚗: " Style="{StaticResource info_input}"/>
-                    <Entry Grid.Row="3" Grid.Column="1" x:Name="trip_rendimento" Keyboard="Numeric"/>
+                    <Entry Grid.Row="3" Grid.Column="1" x:Name="txt_rendimento" Keyboard="Numeric"/>
 
                     <Label Grid.Row="4" Grid.Column="0" Text="L/comb ⛽: " Style="{StaticResource info_input}"/>
-                    <Entry Grid.Row="4" Grid.Column="1" x:Name="trip_combustivel" Keyboard="Numeric"/>
+                    <Entry Grid.Row="4" Grid.Column="1" x:Name="txt_combustivel" Keyboard="Numeric"/>
                 </Grid>
-
-                <Button x:Name="btn_listagempedagios" Style="{StaticResource btn_mainpage}" Text="+ Adicionar pedágio" WidthRequest="200" HeightRequest="20" HorizontalOptions="Start" FontSize="18" BackgroundColor="#1d7c91" Clicked="btn_listagempedagios_Clicked"/>
                 
                 <StackLayout Padding="0, 10">
-                    
+                    <Label Text="Adicionais: " Style="{StaticResource info_input}" FontSize="15" TextColor="{StaticResource Gray600}"/>
+                    <Label x:Name="txt_descricao" Text=""  FontSize="15" TextColor="{StaticResource Gray300}"/>
                 </StackLayout>
+                
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Button x:Name="btn_listagempedagios" Style="{StaticResource btn_mainpage}" Text="+ Adicionar pedágio" WidthRequest="200" HeightRequest="20" HorizontalOptions="Start" FontSize="18" BackgroundColor="#1d7c91" Clicked="btn_listagempedagios_Clicked"/>
+                    <Button x:Name="btn_limparpedagios" Style="{StaticResource btn_mainpage}" Text="- Limpar pedágios" WidthRequest="200" HeightRequest="20" HorizontalOptions="Start" FontSize="18" BackgroundColor="#111845" Clicked="btn_limparpedagios_Clicked"/>
+                </StackLayout>
+                
+                
 
                 <Button x:Name="btn_calculoviagem" Style="{StaticResource btn_mainpage}" BackgroundColor="#4e316b" Text="CALCULAR VIAGEM" Clicked="btn_calculoviagem_Clicked"/>
 

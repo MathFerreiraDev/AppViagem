@@ -44,7 +44,7 @@ public partial class ListaPedagios : ContentPage
             EstacaoPedagio = rodovia
 
         };
-        await App.Db_viagens.InsertViagem(v);
+        await App.Db_pedagios.InsertPedagio(p);
     }
 
     private void MenuItem_Clicked(object sender, EventArgs e)

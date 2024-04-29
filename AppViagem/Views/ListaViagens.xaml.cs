@@ -1,5 +1,6 @@
 using AppViagem.Models;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace AppViagem.Views;
 
@@ -9,13 +10,13 @@ public partial class ListaViagens : ContentPage
     public ListaViagens()
 	{
 		InitializeComponent();
-        lst_viagensviewer.ItemsSource = listViagens;
-        lst_viagensviewer.Focus();
+        lst_viagensviewer.ItemsSource = listViagens;       
     }
     protected async override void OnAppearing()
     {
-        if (listViagens.Count == 0)
-        {
+        //if (listViagens.Count == 0)
+        //{
+            listViagens.Clear();
 
             List<Viagem> tmp = await App.Db_viagens.SelectAllViagens();
             foreach (Viagem v in tmp)
@@ -23,7 +24,8 @@ public partial class ListaViagens : ContentPage
                 listViagens.Add(v);
             }
 
-        }
+        Debug.WriteLine("TOTAL  ============================ " + listViagens.Count);
+        //}
     }
 
 

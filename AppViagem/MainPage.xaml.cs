@@ -2,6 +2,7 @@
 using AppViagem.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq.Expressions;
 
 namespace AppViagem
 {
@@ -9,8 +10,6 @@ namespace AppViagem
     {
         double acrescimos = 0;
         string descricao_acrescimos ="";
-        List<string> nomePedagio = new List<string>();
-        List<double> valorPedagio = new List<double>();
 
         List<Pedagio> listaPedagios = new List<Pedagio>();
 
@@ -63,55 +62,67 @@ namespace AppViagem
 
         private async void btn_listagempedagios_Clicked(object sender, EventArgs e)
         {
-            //string[] pedagios = ["oi0", "oi" ];
-            string pedagioescolhidonome = await DisplayActionSheet("Escolha um pedágio", "Cancel", null, listaPedagios.Select(x => x.NomePedagio).ToArray());
-            
-            if (pedagioescolhidonome != null)
+            try
             {
-                string pedadagioescolhidovalor = listaPedagios.Find(p => p.NomePedagio == pedagioescolhidonome).PrecoPedagio;
+                //string[] pedagios = ["oi0", "oi" ];
+                string pedagioescolhidonome = await DisplayActionSheet("Escolha um pedágio", "Cancel", null, listaPedagios.Select(x => x.NomePedagio).ToArray());
 
-                acrescimos += double.Parse(pedadagioescolhidovalor.Replace("R$ ", ""));
-                descricao_acrescimos += $"[ {pedagioescolhidonome} - {pedadagioescolhidovalor} ] ";
+                if (pedagioescolhidonome != null)
+                {
+                    string pedadagioescolhidovalor = listaPedagios.Find(p => p.NomePedagio == pedagioescolhidonome).PrecoPedagio;
 
-                //Debug.WriteLine("Action: " + action);
-                lbl_descricao.Text = descricao_acrescimos;
+                    acrescimos += double.Parse(pedadagioescolhidovalor.Replace("R$ ", ""));
+                    descricao_acrescimos += $"[ {pedagioescolhidonome} - {pedadagioescolhidovalor} ] ";
+
+                    //Debug.WriteLine("Action: " + action);
+                    lbl_descricao.Text = descricao_acrescimos;
+                }
+            }catch (Exception ex)
+            {
+                await DisplayAlert("Ops!", $"Ocorreu um erro ao listar os pedágios existentes.", "OK");
             }
         }
 
         private async void btn_calculoviagem_Clicked(object sender, EventArgs e)
         {
-            if(txt_origem.Text == String.Empty || txt_origem.Text == " " ||
-               txt_destino.Text == String.Empty || txt_origem.Text == " " ||
-               txt_distancia.Text == String.Empty || txt_distancia.Text == " " || double.Parse(txt_distancia.Text) <= 0 ||
-               txt_rendimento.Text == String.Empty || txt_rendimento.Text == " " || double.Parse(txt_rendimento.Text) <= 0 ||
-               txt_combustivel.Text == String.Empty || txt_combustivel.Text == " " || double.Parse(txt_combustivel.Text) <= 0)
-            {
-                await DisplayAlert("Ops!", $"Foi verificada a ausência de algum dos campos, verifique e tente novamente.", "OK");
-                Clear();
-            }
-            else
-            {
-                double litragem = double.Parse(txt_distancia.Text) / double.Parse(txt_rendimento.Text);
-                double gasto_combustivel = litragem * double.Parse(txt_combustivel.Text);
-                double total_viagem = gasto_combustivel + acrescimos;
-
-                Viagem v = new Viagem()
+            try {
+                if (txt_origem.Text == String.Empty || txt_origem.Text == " " ||
+                   txt_destino.Text == String.Empty || txt_origem.Text == " " ||
+                   txt_distancia.Text == String.Empty || txt_distancia.Text == " " || double.Parse(txt_distancia.Text) <= 0 ||
+                   txt_rendimento.Text == String.Empty || txt_rendimento.Text == " " || double.Parse(txt_rendimento.Text) <= 0 ||
+                   txt_combustivel.Text == String.Empty || txt_combustivel.Text == " " || double.Parse(txt_combustivel.Text) <= 0)
                 {
-                    OrigemViagem = txt_origem.Text,
-                    DestinoViagem = txt_destino.Text,
-                    DistanciaViagem = txt_distancia.Text + " Km",
-                    RendimentoViagem = txt_rendimento.Text + " Km/L",
-                    CombustivelViagem = "R$ " + txt_combustivel.Text,
-                    DescViagem = (descricao_acrescimos == "") ? "Nenhum" : descricao_acrescimos,
-                    LitroViagem = litragem+" L",
-                    TotalViagem = total_viagem.ToString("C")
-                
-                };
-                await App.Db_viagens.InsertViagem(v);
+                    await DisplayAlert("Ops!", $"Foi verificada a ausência de algum dos campos, verifique e tente novamente.", "OK");
+                    
+                }
+                else
+                {
+                    double litragem = double.Parse(txt_distancia.Text) / double.Parse(txt_rendimento.Text);
+                    double gasto_combustivel = litragem * double.Parse(txt_combustivel.Text);
+                    double total_viagem = gasto_combustivel + acrescimos;
 
-                await DisplayAlert($"Viagem de {txt_origem.Text} a {txt_destino.Text}", $"O total de sua viagem resultará em: {total_viagem}", "Certo, obrigado(a)s!");
-                Clear();
+                    Viagem v = new Viagem()
+                    {
+                        OrigemViagem = txt_origem.Text,
+                        DestinoViagem = txt_destino.Text,
+                        DistanciaViagem = txt_distancia.Text + " Km",
+                        RendimentoViagem = txt_rendimento.Text + " Km/L",
+                        CombustivelViagem = "R$ " + txt_combustivel.Text,
+                        DescViagem = (descricao_acrescimos == "") ? "Nenhum" : descricao_acrescimos,
+                        LitroViagem = litragem + " L",
+                        TotalViagem = total_viagem.ToString("C")
+
+                    };
+                    await App.Db_viagens.InsertViagem(v);
+
+                    await DisplayAlert($"Viagem de {txt_origem.Text} a {txt_destino.Text}", $"O total de sua viagem resultará em: {total_viagem.ToString("C")}", "Certo, obrigado(a)s!");
+                    
+               
             }
+            }catch (Exception ex){
+                await DisplayAlert("Ops!", $"Ocorreu um erro ao registar a viagem, tente novamente.", "Certo, obrigado(a)!");
+            }
+            Clear();
         }
 
         private void btn_limparpedagios_Clicked(object sender, EventArgs e)

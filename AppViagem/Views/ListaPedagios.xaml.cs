@@ -35,47 +35,53 @@ public partial class ListaPedagios : ContentPage
         string preco = " ";
         string rodovia = "";
 
-        while ((nome == String.Empty || nome == " ") && nome != null)
+        try
         {
-            nome = await DisplayPromptAsync("Novo Pedágio - Nome", "Insira o nome de determinado pedágio:", "Próximo", "Cancelar", maxLength: 15);
-        }
-
-        while ((preco == String.Empty || preco == " ") && nome != null && preco != null)
-        {
-            preco = await DisplayPromptAsync($"{nome} - taxa", $"Insira a taxação sobre passagem do pedágio:", "Próximo", "Cancelar", maxLength: 15, keyboard: Keyboard.Numeric);
-            if ((preco != String.Empty && preco != " " && preco != null))
+            while ((nome == String.Empty || nome == " ") && nome != null)
             {
-                if(double.Parse(preco) <= 0) { preco = String.Empty; }
-                
-            }
-        }
-
-        while ((rodovia == String.Empty || rodovia == " ") && nome != null && preco != null && rodovia != null)
-        {
-            rodovia = await DisplayPromptAsync($"{nome} - rodovia", $"Insira a rodovia onde se localiza o pedágio:", "Finalizar", "Cancelar", maxLength: 15);
-        }
-
-        if (nome != null && preco != null && rodovia != null)
-        {
-
-            Pedagio p = new Pedagio()
-            {
-                NomePedagio = nome,
-                PrecoPedagio = double.Parse(preco).ToString("C"),
-                EstacaoPedagio = rodovia
-
-            };
-            await App.Db_pedagios.InsertPedagio(p);
-
-            listPedagios.Clear();
-
-            List<Pedagio> tmp = await App.Db_pedagios.SelectAllPedagios();
-            foreach (Pedagio pd in tmp)
-            {
-                listPedagios.Add(pd);
+                nome = await DisplayPromptAsync("Novo Pedágio - Nome", "Insira o nome de determinado pedágio:", "Próximo", "Cancelar", maxLength: 15);
             }
 
-            lst_pedagios.ItemsSource = listPedagios;
+            while ((preco == String.Empty || preco == " ") && nome != null && preco != null)
+            {
+                preco = await DisplayPromptAsync($"{nome} - taxa", $"Insira a taxação sobre passagem do pedágio:", "Próximo", "Cancelar", maxLength: 15, keyboard: Keyboard.Numeric);
+                if ((preco != String.Empty && preco != " " && preco != null))
+                {
+                    if (double.Parse(preco) <= 0) { preco = String.Empty; }
+
+                }
+            }
+
+            while ((rodovia == String.Empty || rodovia == " ") && nome != null && preco != null && rodovia != null)
+            {
+                rodovia = await DisplayPromptAsync($"{nome} - rodovia", $"Insira a rodovia onde se localiza o pedágio:", "Finalizar", "Cancelar", maxLength: 15);
+            }
+
+            if (nome != null && preco != null && rodovia != null)
+            {
+
+                Pedagio p = new Pedagio()
+                {
+                    NomePedagio = nome,
+                    PrecoPedagio = double.Parse(preco).ToString("C"),
+                    EstacaoPedagio = rodovia
+
+                };
+                await App.Db_pedagios.InsertPedagio(p);
+
+                listPedagios.Clear();
+
+                List<Pedagio> tmp = await App.Db_pedagios.SelectAllPedagios();
+                foreach (Pedagio pd in tmp)
+                {
+                    listPedagios.Add(pd);
+                }
+
+                lst_pedagios.ItemsSource = listPedagios;
+            }
+        }catch (Exception ex)
+        {
+            await DisplayAlert("Ops!", $"Ocorreu um erro ao registrar o novo pedágio.", "Certo, obrigado(a)!");
         }
     }
 

@@ -17,7 +17,7 @@
                                 <Frame  Padding="3" Margin="10"  BackgroundColor="{StaticResource Gray200}" CornerRadius="10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                                 <Frame  BackgroundColor="White" CornerRadius="7" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
-                                    <Grid RowDefinitions="*, 30, Auto, 30, 30" ColumnDefinitions="*, 110" RowSpacing="5">
+                                    <Grid RowDefinitions="*, 30, Auto, 30" ColumnDefinitions="*, 110" RowSpacing="5">
 
                                         <StackLayout Spacing="10" Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
                                             <Label Text="{Binding OrigemViagem}" FontSize="20" 

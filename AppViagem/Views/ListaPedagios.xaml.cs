@@ -85,13 +85,27 @@ public partial class ListaPedagios : ContentPage
         }
     }
 
-    private void MenuItem_Clicked(object sender, EventArgs e)
+    
+
+    private async void lst_pedagios_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
 
+
+        
     }
 
-    private void lst_pedagios_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
+        Pedagio p = (Pedagio)sender;
 
+        Debug.WriteLine(p);
+        Debug.WriteLine("-------------------------------------------------------");
+
+        bool opcao = await DisplayAlert("Excluir", $"Deseja excluir o pedágio ?", "Sim", "Não");
+
+        if (opcao)
+        {
+
+        }
     }
 }

@@ -7,14 +7,18 @@
         <StackLayout VerticalOptions="FillAndExpand">
             <Button x:Name="btn_adicionarpedagio" Style="{StaticResource btn_fullwidth}" Text="Adicionar pedágio"  Clicked="btn_adicionarpedagio_Clicked"/>
             <ScrollView VerticalOptions="FillAndExpand">
-                <CollectionView x:Name="lst_pedagios"  Margin="10" VerticalOptions="FillAndExpand">
+            <CollectionView x:Name="lst_pedagios"  Margin="10" VerticalOptions="FillAndExpand" SelectionMode="Single">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
+                        
                             <ContentView>
                                 
                                
                                     <Frame  Padding="3" Margin="10, 10, 10, 0" BackgroundColor="{StaticResource Gray200}" CornerRadius="10" HorizontalOptions="FillAndExpand">
-                                        <Frame  BackgroundColor="White" CornerRadius="7" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                </Frame.GestureRecognizers>
+                                <Frame  BackgroundColor="White" CornerRadius="7" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                                             <Grid RowDefinitions="*, *" ColumnDefinitions="*, *" RowSpacing="5">
                                                 <Label Text="{Binding NomePedagio}" FontSize="20" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
                                                    TextColor="Black" HorizontalTextAlignment="Start" VerticalTextAlignment="Start"/>

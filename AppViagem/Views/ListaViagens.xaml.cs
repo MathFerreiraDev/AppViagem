@@ -54,4 +54,9 @@ public partial class ListaViagens : ContentPage
             await DisplayAlert("Ops", ex.Message, "OK");
         }
     }
+
+    private void SwipeItem_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }

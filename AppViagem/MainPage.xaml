@@ -18,14 +18,14 @@
                 Aspect="AspectFit"
                 SemanticProperties.Description="no found image!" />
 
-            <Frame Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="20" BackgroundColor="#f0f0f0" Grid.RowSpan="2" BorderColor="#f0f0f0" Padding="30, 15">
+            <Frame Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CornerRadius="20" BackgroundColor="#e3e3e3" Grid.RowSpan="2" BorderColor="#e3e3e3" Padding="30, 15">
                 <Grid  ColumnDefinitions="*, *" ColumnSpacing="15">
                     <Button x:Name="btn_viagens" Grid.Column="0" Style="{StaticResource btn_mainpage}" BackgroundColor="#238761" Text="🎫 LISTAR VIAGENS" Clicked="btn_viagens_Clicked"/>
                     <Button x:Name="btn_pedagios" Grid.Column="1" Style="{StaticResource btn_mainpage}" BackgroundColor="#215b8a" Text="📌 LISTAR PEDÁGIOS" Clicked="btn_pedagios_Clicked"/>
                 </Grid>
             </Frame>
-            
-            <StackLayout BackgroundColor="#f0f0f0"
+
+            <StackLayout BackgroundColor="#e3e3e3"
     Padding="45, 0, 45, 20"
     Spacing="25" Grid.Row="2">
                 <Label

@@ -1,21 +1,45 @@
 ﻿using AppViagem.Models;
 using AppViagem.Views;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace AppViagem
 {
     public partial class MainPage : ContentPage
     {
-        int acrescimos = 0;
-        string descicao_acrescimos ="Nenhum";
+        double acrescimos = 0;
+        string descricao_acrescimos ="";
+        List<string> nomePedagio = new List<string>();
+        List<double> valorPedagio = new List<double>();
+
+        List<Pedagio> listaPedagios = new List<Pedagio>();
+
 
         public MainPage()
         {
             InitializeComponent();
-
+           
             NavigationPage.SetHasNavigationBar(this, false);
             NavigationPage.SetBackButtonTitle(this, null);
+            
         }
+
+        protected async override void OnAppearing()
+        {
+            //if (listViagens.Count == 0)
+            //{
+            listaPedagios.Clear();
+
+            List<Pedagio> tmp = await App.Db_pedagios.SelectAllPedagios();
+            foreach (Pedagio p in tmp)
+            {
+                listaPedagios.Add(p);
+            }
+
+            
+            //}
+        }
+
         public void Clear()
         {
             txt_origem.Text = String.Empty;
@@ -24,8 +48,8 @@ namespace AppViagem
             txt_rendimento.Text = String.Empty;
             txt_combustivel.Text = String.Empty;
             acrescimos = 0;
-            descicao_acrescimos = "Nenhum";
-            txt_descricao.Text = String.Empty;
+            descricao_acrescimos = "";
+            lbl_descricao.Text = String.Empty;
         }
         private async void btn_viagens_Clicked(object sender, EventArgs e)
         {
@@ -40,8 +64,18 @@ namespace AppViagem
         private async void btn_listagempedagios_Clicked(object sender, EventArgs e)
         {
             //string[] pedagios = ["oi0", "oi" ];
-            //string action = await DisplayActionSheet("Escolha um pedágio", "Cancel", null, pedagios);
-            //Debug.WriteLine("Action: " + action);
+            string pedagioescolhidonome = await DisplayActionSheet("Escolha um pedágio", "Cancel", null, listaPedagios.Select(x => x.NomePedagio).ToArray());
+            
+            if (pedagioescolhidonome != null)
+            {
+                string pedadagioescolhidovalor = listaPedagios.Find(p => p.NomePedagio == pedagioescolhidonome).PrecoPedagio;
+
+                acrescimos += double.Parse(pedadagioescolhidovalor.Replace("R$ ", ""));
+                descricao_acrescimos += $"[ {pedagioescolhidonome} - {pedadagioescolhidovalor} ] ";
+
+                //Debug.WriteLine("Action: " + action);
+                lbl_descricao.Text = descricao_acrescimos;
+            }
         }
 
         private async void btn_calculoviagem_Clicked(object sender, EventArgs e)
@@ -68,7 +102,7 @@ namespace AppViagem
                     DistanciaViagem = txt_distancia.Text + " Km",
                     RendimentoViagem = txt_rendimento.Text + " Km/L",
                     CombustivelViagem = "R$ " + txt_combustivel.Text,
-                    DescViagem = descicao_acrescimos,
+                    DescViagem = (descricao_acrescimos == "") ? "Nenhum" : descricao_acrescimos,
                     LitroViagem = litragem+" L",
                     TotalViagem = total_viagem.ToString("C")
                 
@@ -83,8 +117,8 @@ namespace AppViagem
         private void btn_limparpedagios_Clicked(object sender, EventArgs e)
         {
             acrescimos = 0;
-            descicao_acrescimos = "Nenhum";
-            txt_descricao.Text = String.Empty;
+            descricao_acrescimos = "";
+            lbl_descricao.Text = String.Empty;
         }
     }
 

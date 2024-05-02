@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppViagem.Views.ListaPedagios"
              Title="📌 Pedágios">
-    <VerticalStackLayout>
-        <StackLayout>
+   
+        <StackLayout VerticalOptions="FillAndExpand">
             <Button x:Name="btn_adicionarpedagio" Style="{StaticResource btn_fullwidth}" Text="Adicionar pedágio"  Clicked="btn_adicionarpedagio_Clicked"/>
-            <ScrollView>
-                <CollectionView x:Name="lst_pedagios"  Margin="10">
+            <ScrollView VerticalOptions="FillAndExpand">
+                <CollectionView x:Name="lst_pedagios"  Margin="10" VerticalOptions="FillAndExpand">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <ContentView>
@@ -36,5 +36,5 @@
 
             </ScrollView>
         </StackLayout>
-    </VerticalStackLayout>
+    
 </ContentPage>

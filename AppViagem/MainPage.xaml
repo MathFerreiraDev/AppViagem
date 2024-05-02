@@ -53,7 +53,7 @@
                 
                 <StackLayout Padding="0, 10">
                     <Label Text="Adicionais: " Style="{StaticResource info_input}" FontSize="15" TextColor="{StaticResource Gray600}"/>
-                    <Label x:Name="txt_descricao" Text=""  FontSize="15" TextColor="{StaticResource Gray300}"/>
+                    <Label x:Name="lbl_descricao" Text=""  FontSize="15" TextColor="{StaticResource Gray300}"/>
                 </StackLayout>
                 
                 <StackLayout Orientation="Horizontal" Spacing="10">

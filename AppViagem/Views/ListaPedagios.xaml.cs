@@ -1,12 +1,32 @@
 using AppViagem.Models;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace AppViagem.Views;
 
 public partial class ListaPedagios : ContentPage
 {
+    ObservableCollection<Pedagio> listPedagios = new ObservableCollection<Pedagio>();
     public ListaPedagios()
     {
         InitializeComponent();
+        lst_pedagios.ItemsSource = listPedagios;
+    }
+
+    protected async override void OnAppearing()
+    {
+        //if (listViagens.Count == 0)
+        //{
+        listPedagios.Clear();
+
+        List<Pedagio> tmp = await App.Db_pedagios.SelectAllPedagios();
+        foreach (Pedagio p in tmp)
+        {
+            listPedagios.Add(p);
+        }
+
+        Debug.WriteLine("TOTAL  ============================ " + listPedagios.Count);
+        //}
     }
 
     private async void btn_adicionarpedagio_Clicked(object sender, EventArgs e)
@@ -14,7 +34,6 @@ public partial class ListaPedagios : ContentPage
         string nome = "";
         string preco = " ";
         string rodovia = "";
-        string cancel = null;
 
         while ((nome == String.Empty || nome == " ") && nome != null)
         {
@@ -36,15 +55,28 @@ public partial class ListaPedagios : ContentPage
             rodovia = await DisplayPromptAsync($"{nome} - rodovia", $"Insira a rodovia onde se localiza o pedágio:", "Finalizar", "Cancelar", maxLength: 15);
         }
 
-
-        Pedagio p = new Pedagio()
+        if (nome != null && preco != null && rodovia != null)
         {
-            NomePedagio = nome,
-            PrecoPedagio = preco,
-            EstacaoPedagio = rodovia
 
-        };
-        await App.Db_pedagios.InsertPedagio(p);
+            Pedagio p = new Pedagio()
+            {
+                NomePedagio = nome,
+                PrecoPedagio = double.Parse(preco).ToString("C"),
+                EstacaoPedagio = rodovia
+
+            };
+            await App.Db_pedagios.InsertPedagio(p);
+
+            listPedagios.Clear();
+
+            List<Pedagio> tmp = await App.Db_pedagios.SelectAllPedagios();
+            foreach (Pedagio pd in tmp)
+            {
+                listPedagios.Add(pd);
+            }
+
+            lst_pedagios.ItemsSource = listPedagios;
+        }
     }
 
     private void MenuItem_Clicked(object sender, EventArgs e)

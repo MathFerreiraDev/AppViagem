@@ -5,8 +5,8 @@
              Title="🎫 LISTAR VIAGENS">
 
     <StackLayout VerticalOptions="FillAndExpand">
-        
 
+        <ScrollView VerticalOptions="FillAndExpand">
             <CollectionView x:Name="lst_viagensviewer" VerticalOptions="FillAndExpand">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -77,9 +77,9 @@
                     </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        </ScrollView>
 
 
-        
     </StackLayout>
 
 </ContentPage>
